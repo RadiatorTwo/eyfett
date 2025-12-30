@@ -4,18 +4,82 @@
     <meta charset="UTF-8">
     <title>Ey Fett!!</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            background-color: #000;
+            background: linear-gradient(45deg, #000, #1a1a1a, #000);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            overflow: hidden;
         }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
         h1 {
-            font-size: 10rem;
+            font-size: 15vw;
             color: #fff;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial Black', sans-serif;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-shadow: 
+                0 0 10px #ff0000,
+                0 0 20px #ff0000,
+                0 0 30px #ff0000,
+                0 0 40px #ff0000,
+                0 0 70px #ff0000,
+                0 0 80px #ff0000,
+                0 0 100px #ff0000,
+                0 0 150px #ff0000;
+            animation: pulse 2s ease-in-out infinite, float 3s ease-in-out infinite;
+            letter-spacing: 0.1em;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                text-shadow: 
+                    0 0 10px #ff0000,
+                    0 0 20px #ff0000,
+                    0 0 30px #ff0000,
+                    0 0 40px #ff0000,
+                    0 0 70px #ff0000,
+                    0 0 80px #ff0000,
+                    0 0 100px #ff0000,
+                    0 0 150px #ff0000;
+            }
+            50% {
+                transform: scale(1.05);
+                text-shadow: 
+                    0 0 20px #ff0000,
+                    0 0 30px #ff0000,
+                    0 0 40px #ff0000,
+                    0 0 50px #ff0000,
+                    0 0 80px #ff0000,
+                    0 0 90px #ff0000,
+                    0 0 110px #ff0000,
+                    0 0 160px #ff0000;
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) scale(1);
+            }
+            50% {
+                transform: translateY(-20px) scale(1.05);
+            }
         }
     </style>
 </head>
