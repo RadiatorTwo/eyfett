@@ -28,6 +28,11 @@
             100% { background-position: 0% 50%; }
         }
         
+        .text-container {
+            position: relative;
+            transition: transform 0.15s ease-out;
+        }
+        
         h1 {
             font-size: 15vw;
             color: #fff;
@@ -43,9 +48,8 @@
                 0 0 80px #ff0000,
                 0 0 100px #ff0000,
                 0 0 150px #ff0000;
-            animation: pulse 2s ease-in-out infinite, float 3s ease-in-out infinite;
+            animation: pulse 2s ease-in-out infinite;
             letter-spacing: 0.1em;
-            transition: transform 0.1s ease-out;
             user-select: none;
         }
         
@@ -75,15 +79,6 @@
                     0 0 160px #ff0000;
             }
         }
-        
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px) scale(1);
-            }
-            50% {
-                transform: translateY(-20px) scale(1.05);
-            }
-        }
 
         @keyframes explode {
             0% {
@@ -106,15 +101,18 @@
             }
         }
 
-        .exploding {
-            animation: explode 0.5s ease-out !important;
+        .exploding h1 {
+            animation: explode 0.5s ease-out, pulse 2s ease-in-out infinite !important;
         }
     </style>
 </head>
 <body>
-    <h1 id="text">Ey Fett!!</h1>
+    <div class="text-container" id="container">
+        <h1 id="text">Ey Fett!!</h1>
+    </div>
 
     <script>
+        const container = document.getElementById('container');
         const text = document.getElementById('text');
         const body = document.body;
 
@@ -125,23 +123,23 @@
             const centerX = window.innerWidth / 2;
             const centerY = window.innerHeight / 2;
             
-            // Berechne Distanz vom Zentrum (max 50px Bewegung)
-            const moveX = (mouseX - centerX) / 20;
-            const moveY = (mouseY - centerY) / 20;
+            // Berechne Distanz vom Zentrum (max 80px Bewegung für bessere Sichtbarkeit)
+            const moveX = (mouseX - centerX) / 15;
+            const moveY = (mouseY - centerY) / 15;
             
-            text.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            container.style.transform = `translate(${moveX}px, ${moveY}px)`;
         });
 
         // Klick-Reaktion
         body.addEventListener('click', () => {
-            text.classList.remove('exploding');
+            container.classList.remove('exploding');
             // Kleiner Trick um Animation neu zu starten
-            void text.offsetWidth;
-            text.classList.add('exploding');
+            void container.offsetWidth;
+            container.classList.add('exploding');
             
             // Entferne Klasse nach Animation
             setTimeout(() => {
-                text.classList.remove('exploding');
+                container.classList.remove('exploding');
             }, 500);
         });
     </script>
