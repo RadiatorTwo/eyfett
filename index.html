@@ -19,6 +19,7 @@
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
             overflow: hidden;
+            cursor: pointer;
         }
         
         @keyframes gradientShift {
@@ -44,6 +45,8 @@
                 0 0 150px #ff0000;
             animation: pulse 2s ease-in-out infinite, float 3s ease-in-out infinite;
             letter-spacing: 0.1em;
+            transition: transform 0.1s ease-out;
+            user-select: none;
         }
         
         @keyframes pulse {
@@ -81,9 +84,66 @@
                 transform: translateY(-20px) scale(1.05);
             }
         }
+
+        @keyframes explode {
+            0% {
+                transform: scale(1) rotate(0deg);
+            }
+            50% {
+                transform: scale(1.5) rotate(10deg);
+                text-shadow: 
+                    0 0 30px #ff0000,
+                    0 0 60px #ff0000,
+                    0 0 90px #ff0000,
+                    0 0 120px #ff0000,
+                    0 0 150px #ff0000,
+                    0 0 180px #ff0000,
+                    0 0 210px #ff0000,
+                    0 0 300px #ff0000;
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .exploding {
+            animation: explode 0.5s ease-out !important;
+        }
     </style>
 </head>
 <body>
-    <h1>Ey Fett!!</h1>
+    <h1 id="text">Ey Fett!!</h1>
+
+    <script>
+        const text = document.getElementById('text');
+        const body = document.body;
+
+        // Maus-Follow Effekt
+        body.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            
+            // Berechne Distanz vom Zentrum (max 50px Bewegung)
+            const moveX = (mouseX - centerX) / 20;
+            const moveY = (mouseY - centerY) / 20;
+            
+            text.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        });
+
+        // Klick-Reaktion
+        body.addEventListener('click', () => {
+            text.classList.remove('exploding');
+            // Kleiner Trick um Animation neu zu starten
+            void text.offsetWidth;
+            text.classList.add('exploding');
+            
+            // Entferne Klasse nach Animation
+            setTimeout(() => {
+                text.classList.remove('exploding');
+            }, 500);
+        });
+    </script>
 </body>
 </html>
