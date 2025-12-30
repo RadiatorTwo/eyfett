@@ -28,11 +28,6 @@
             100% { background-position: 0% 50%; }
         }
         
-        .text-container {
-            position: relative;
-            transition: transform 0.15s ease-out;
-        }
-        
         h1 {
             font-size: 15vw;
             color: #fff;
@@ -101,44 +96,33 @@
             }
         }
 
-        .text-container.exploding h1 {
+        h1.exploding {
             animation: explode 0.5s ease-out !important;
         }
     </style>
 </head>
 <body>
-    <div class="text-container" id="container">
-        <h1 id="text">Ey Fett!!</h1>
-    </div>
+    <h1 id="text">Ey Fett!!</h1>
 
     <script>
-        const container = document.getElementById('container');
+        const text = document.getElementById('text');
         const body = document.body;
 
-        // Maus-Follow Effekt
-        body.addEventListener('mousemove', (e) => {
-            const mouseX = e.clientX;
-            const mouseY = e.clientY;
-            const centerX = window.innerWidth / 2;
-            const centerY = window.innerHeight / 2;
-            
-            // Berechne Distanz vom Zentrum (max 80px Bewegung für bessere Sichtbarkeit)
-            const moveX = (mouseX - centerX) / 15;
-            const moveY = (mouseY - centerY) / 15;
-            
-            container.style.transform = `translate(${moveX}px, ${moveY}px)`;
-        });
+        // Deine eigene MP3-Datei
+        const audio = new Audio('bass.mp3');
+        audio.volume = 0.5;
 
-        // Klick-Reaktion
+        // Klick-Reaktion mit Sound
         body.addEventListener('click', () => {
-            container.classList.remove('exploding');
-            // Kleiner Trick um Animation neu zu starten
-            void container.offsetWidth;
-            container.classList.add('exploding');
+            text.classList.remove('exploding');
+            void text.offsetWidth;
+            text.classList.add('exploding');
             
-            // Entferne Klasse nach Animation
+            audio.currentTime = 0;
+            audio.play().catch(e => console.log('Audio konnte nicht abgespielt werden'));
+            
             setTimeout(() => {
-                container.classList.remove('exploding');
+                text.classList.remove('exploding');
             }, 500);
         });
     </script>
