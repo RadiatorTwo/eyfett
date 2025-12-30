@@ -101,8 +101,8 @@
             }
         }
 
-        .exploding h1 {
-            animation: explode 0.5s ease-out, pulse 2s ease-in-out infinite !important;
+        .text-container.exploding h1 {
+            animation: explode 0.5s ease-out !important;
         }
     </style>
 </head>
@@ -113,7 +113,6 @@
 
     <script>
         const container = document.getElementById('container');
-        const text = document.getElementById('text');
         const body = document.body;
 
         // Maus-Follow Effekt
